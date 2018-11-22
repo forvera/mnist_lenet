@@ -20,4 +20,13 @@ class lenet(object):
 
         conv2 = convLayer(pool1, 5, 5, 16, 1, 1, name='conv2', padding='VALID')
         pool2 = maxPoolLayer(conv2, 2, 2, 2, 2, name='pool2', padding='VALID')
-        pass
+
+        flattened_shape = np.prod([s.value for s in pool2.get_shape()[1:]])
+        flatten = tf.reshape(pool2, [-1, flattened_shape])
+
+        net = fcLayer(flatten, flatten.get_shape()[-1], 120, reluflag=True, name='fc3')
+        net = dropout(net, self.keep_prob, name='dropout')
+        net = fcLayer(net, 120, 84, reluflag=True, name='fc4')
+        net = dropout(net, self.keep_prob, name='dropout')
+        net = fcLayer(net, 84, self.num_classes, reluflag=False, name='fc5')
+        return net
