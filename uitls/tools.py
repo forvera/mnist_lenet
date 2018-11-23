@@ -8,12 +8,13 @@ def convLayer(x, kHeight, kWidth, featureNum, strideX, strideY, name, padding='S
     with tf.variable_scope(name) as scope:
         weights = tf.get_variable('weight', [kHeight, kWidth, channels, featureNum])
         biases = tf.get_variable('biases', [featureNum])
-        conv = tf.nn.conv2d(x, weights, [1, strideX, strideY, 1], padding, name)
+        conv = tf.nn.conv2d(x, weights, [1, strideX, strideY, 1], padding, name=name)
         conv_bias = tf.nn.bias_add(conv, biases)
     return tf.nn.relu(conv_bias)
 
 def maxPoolLayer(x, kHeight, kWidth, strideX, strideY, name, padding='SAME'):
     """max pooling"""
+    print(x.shape)
     return tf.nn.max_pool(x, [1, kHeight, kWidth, 1], [1, strideX, strideY, 1], padding, name)
 
 def fcLayer(x, inputD, outputD, reluflag, name):
