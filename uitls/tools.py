@@ -14,8 +14,7 @@ def convLayer(x, kHeight, kWidth, featureNum, strideX, strideY, name, padding='S
 
 def maxPoolLayer(x, kHeight, kWidth, strideX, strideY, name, padding='SAME'):
     """max pooling"""
-    print(x.shape)
-    return tf.nn.max_pool(x, [1, kHeight, kWidth, 1], [1, strideX, strideY, 1], padding, name)
+    return tf.nn.max_pool(x, [1, kHeight, kWidth, 1], [1, strideX, strideY, 1], padding, name=name)
 
 def fcLayer(x, inputD, outputD, reluflag, name):
     """fully connect layer"""
@@ -29,7 +28,7 @@ def fcLayer(x, inputD, outputD, reluflag, name):
 
 def dropout(x, keep_prob, name=None):
     """dropout"""
-    return tf.nn.dropout(x, keep_prob, name)
+    return tf.nn.dropout(x, keep_prob, name=name)
 
 def generateVariables():
     with tf.name_scope('conv1') as scope:

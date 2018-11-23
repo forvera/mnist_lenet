@@ -19,7 +19,7 @@ class lenet(object):
         conv2 = convLayer(pool1, 5, 5, 16, 1, 1, name='conv2', padding='VALID')
         pool2 = maxPoolLayer(conv2, 2, 2, 2, 2, name='pool2', padding='VALID')
 
-        conv3 = convLayer(pool2, 5, 5, 120, 1, name='conv3', padding='VALID')
+        conv3 = convLayer(pool2, 5, 5, 120, 1, 1, name='conv3', padding='VALID')
 
         flattened_shape = np.prod([s.value for s in conv3.get_shape()[1:]])
         flatten = tf.reshape(conv3, [-1, flattened_shape])

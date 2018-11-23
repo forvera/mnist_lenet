@@ -30,11 +30,11 @@ def train():
             sess.run(tf.global_variables_initializer())
             for epoch in range(num_epoches):
                 batch = mnist.train.next_batch(batch_size)
-                batch_x = tf.reshape(batch[0], [-1, 28, 28, 1])
-                batch_y = tf.reshape(batch[1], [-1, cfg.NUM_CLASSES])
+                batch_x = np.reshape(batch[0], [-1, 28, 28, 1])
+                batch_y = np.reshape(batch[1], [-1, cfg.NUM_CLASSES])
                 if (epoch+1) % 100 == 0:
-                    sess.run(acc, feed_dict={x: batch_x, y: batch_y, keep_prob: 1.0})
-                    print('step %d, training accuracy %g' % (epoch+1, acc))
+                    train_acc = sess.run(acc, feed_dict={x: batch_x, y: batch_y, keep_prob: 1.0})
+                    print('step %d, training accuracy %g' % (epoch+1, train_acc))
                 sess.run(optimizer_op, feed_dict={x: batch_x, y: batch_y, keep_prob: cfg.KEEP_PROB})
     pass
 
