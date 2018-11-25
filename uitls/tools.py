@@ -54,6 +54,7 @@ def optimizer(loss_op, learning_rate):
     return tf.train.AdamOptimizer(learning_rate).minimize(loss_op)
 
 def accuracy(logits, y):
+    logits = tf.nn.softmax(logits)
     correct = tf.equal(tf.argmax(logits, 1), tf.argmax(y, 1))
     acc = tf.reduce_mean(tf.cast(correct, tf.float32))
     return acc
